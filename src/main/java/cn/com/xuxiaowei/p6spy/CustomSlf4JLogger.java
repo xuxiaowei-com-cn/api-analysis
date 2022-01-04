@@ -1,9 +1,11 @@
 package cn.com.xuxiaowei.p6spy;
 
+import cn.com.xuxiaowei.aspect.P6spyAspect;
 import com.p6spy.engine.logging.Category;
 import com.p6spy.engine.spy.appender.SingleLineFormat;
 import com.p6spy.engine.spy.appender.Slf4JLogger;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
@@ -35,7 +37,7 @@ public class CustomSlf4JLogger extends Slf4JLogger {
 //        final String msg = strategy.formatMessage(connectionId, nowFormat, elapsed,
 //                category.toString(), "", sql, "");
 
-        String msg = nowFormat + "|" + elapsed + "|" + sql;
+        String msg = MDC.get(P6spyAspect.P6SPY_UUID) + "：" + nowFormat + "|" + elapsed + "|" + sql;
 
         if (Category.ERROR.equals(category)) {
             log.error(msg);
