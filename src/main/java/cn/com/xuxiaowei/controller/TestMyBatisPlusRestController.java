@@ -1,6 +1,7 @@
 package cn.com.xuxiaowei.controller;
 
 import cn.com.xuxiaowei.entity.TestMyBatisPlus;
+import cn.com.xuxiaowei.service.ITestMyBatisPlusBakService;
 import cn.com.xuxiaowei.service.ITestMyBatisPlusService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,16 @@ public class TestMyBatisPlusRestController {
 
     private ITestMyBatisPlusService testMyBatisPlusService;
 
+    private ITestMyBatisPlusBakService testMyBatisPlusBakService;
+
     @Autowired
     public void setTestMyBatisPlusService(ITestMyBatisPlusService testMyBatisPlusService) {
         this.testMyBatisPlusService = testMyBatisPlusService;
+    }
+
+    @Autowired
+    public void setTestMyBatisPlusBakService(ITestMyBatisPlusBakService testMyBatisPlusBakService) {
+        this.testMyBatisPlusBakService = testMyBatisPlusBakService;
     }
 
     /**
@@ -45,6 +53,9 @@ public class TestMyBatisPlusRestController {
 
         TestMyBatisPlus byId = testMyBatisPlusService.getById(id);
         map.put("testMyBatisPlus", byId);
+
+        TestMyBatisPlus byIdBak = testMyBatisPlusBakService.getById(id);
+        map.put("testMyBatisPlusBak", byIdBak);
 
         return map;
     }

@@ -34,10 +34,8 @@ public class CustomSlf4JLogger extends Slf4JLogger {
         LocalDateTime nowLocalDateTime = LocalDateTime.ofEpochSecond(epochSecond, 0, ZoneOffset.of("+8"));
         String nowFormat = nowLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-//        final String msg = strategy.formatMessage(connectionId, nowFormat, elapsed,
-//                category.toString(), "", sql, "");
-
-        String msg = MDC.get(P6spyAspect.P6SPY_UUID) + "：" + nowFormat + "|" + elapsed + "|" + sql;
+        final String msg = MDC.get(P6spyAspect.P6SPY_UUID) + "：" + strategy.formatMessage(connectionId, nowFormat, elapsed,
+                category.toString(), prepared, sql, url);
 
         if (Category.ERROR.equals(category)) {
             log.error(msg);

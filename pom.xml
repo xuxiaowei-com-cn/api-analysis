@@ -32,6 +32,13 @@
             <version>3.5.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
