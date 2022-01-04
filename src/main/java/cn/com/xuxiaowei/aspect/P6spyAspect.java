@@ -44,7 +44,8 @@ public class P6spyAspect {
     /**
      * Service 切点
      */
-    @Pointcut("execution(* cn.com.xuxiaowei.service.impl.*.*(..))")
+    @Pointcut("execution(* cn.com.xuxiaowei.service.impl.*.*(..)) " +
+            "|| execution(* com.baomidou.mybatisplus.extension.service.*.*(..))")
     public void pointcutService() {
 
     }
