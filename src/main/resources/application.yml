@@ -10,6 +10,13 @@ spring:
     password: root
     # 数据库连接串
     url: jdbc:p6spy:mysql://127.0.0.1:3306/api-analysis?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
+    # 1. 未引入 Druid 依赖时，默认使用 Hikari
+    # 2. 引入 Druid 依赖（Druid、Hikari 同时存在）时，使用 Druid
+    # 3. 同时存在多个连接池时，推荐自定义设置 `spring.datasource.type`，防止意外情况
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 使用 Druid 时，错误日志：testWhileIdle is true, validationQuery not set
+      validation-query: select 1.1 * 1.1
 #
 # MyBatis 配置
 mybatis:

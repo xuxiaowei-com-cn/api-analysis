@@ -25,6 +25,18 @@
             <version>3.9.1</version>
         </dependency>
 
+        <!--
+            1. 未引入 Druid 依赖时，默认使用 Hikari
+            2. 引入 Druid 依赖（Druid、Hikari 同时存在）时，使用 Druid
+            3. 同时存在多个连接池时，推荐自定义设置 `spring.datasource.type`，防止意外情况
+        -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
