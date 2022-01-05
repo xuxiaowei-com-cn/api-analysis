@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 /**
@@ -44,7 +45,8 @@ public class P6spyAspect {
     /**
      * Service 切点
      */
-    @Pointcut("execution(* cn.com.xuxiaowei.service.impl.*.*(..))")
+    @Pointcut("execution(* cn.com.xuxiaowei.service.impl.*.*(..)) " +
+            "|| execution(* com.baomidou.mybatisplus.extension.service.*.*(..))")
     public void pointcutService() {
 
     }
@@ -84,9 +86,18 @@ public class P6spyAspect {
     public void beforeService(JoinPoint joinPoint) {
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        String method = signature.getMethod().toString();
+        Method method = signature.getMethod();
 
-        log.info("{}：{}：{}", MDC.get(P6SPY_UUID), P6spyAspect.P6SPY_SERVICE, method);
+        String methodFullyName = method.toString();
+        String className = method.getDeclaringClass().getName();
+        String methodName = method.getName();
+        log.info("方法全名：{}", methodFullyName);
+        log.info("类名：{}", className);
+        log.info("方法名：{}", methodName);
+
+        String target = joinPoint.getTarget().getClass().toString();
+
+        log.info("{}：{}：{}：{}", MDC.get(P6SPY_UUID), P6spyAspect.P6SPY_SERVICE, target, method);
     }
 
     /**
@@ -100,7 +111,9 @@ public class P6spyAspect {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         String method = signature.getMethod().toString();
 
-        log.info("{}：{}：{}", MDC.get(P6SPY_UUID), P6spyAspect.P6SPY_MAPPER, method);
+        String target = joinPoint.getTarget().getClass().toString();
+
+        log.info("{}：{}：{}：{}", MDC.get(P6SPY_UUID), P6spyAspect.P6SPY_MAPPER, target, method);
     }
 
 }
